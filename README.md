@@ -1,2 +1,3 @@
 # Python-Mini-Project
-Steen, Aryan ans Shwen. Movie recommendation system using pandas.
+Steen, Aryan and Shwen. Movie recommendation system using pandas,django for backend. pure html, css for frontend
+
