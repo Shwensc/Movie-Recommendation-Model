@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Recommendation System</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommendation System</h1>
+        <form id="movieForm">
+            <label for="movieInput">Enter a movie:</label>
+            <input type="text" id="movieInput" name="movie_name" placeholder="Movie Title">
+            <button type="submit">Submit</button>
+        </form>
+        <div id="output"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#movieForm').submit(function(event) {
+                event.preventDefault();
+                var formData = $(this).serialize();
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url "recommendations" %}',
+                    data: formData,
+                    dataType: 'json',
+                    success: function(data) {
+                        var html = "<h3>Similar Movies:</h3><ul>";
+                        data.forEach(function(item) {
+                            html += "<li>" + item.title + " (" + item.genres + ")" + "</li>";
+                        });
+                        html += "</ul>";
+                        $('#output').html(html);
+                    },
+                    error: function(xhr, status, error) {
+                        $('#output').html("<p style='color: red;'>Error: " + error + "</p>");
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

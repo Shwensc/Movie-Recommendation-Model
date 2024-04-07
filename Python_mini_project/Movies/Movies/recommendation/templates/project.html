@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Recommendation System</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link rel="stylesheet" href="{% static 'projectstyle.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="content">   
+        <h1>Over <br>209155+ movies available</h1>
+        <h2><p>Enter a movie to find equally thrilling movies now !</p></h2>
+        <form id="movieForm">
+            <label for="movieInput"><h3>Your movie here:</h3></label>
+            <input type="text" id="movieInput" name="movie_name" placeholder="Movie Title">
+            <button type="submit" class="btn">Submit</button>
+        </form>
+        <div class="output" id="output"></div>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+    $('#movieForm').submit(function(event) {
+        event.preventDefault();
+        var formData = $(this).serialize();
+        $.ajax({
+            type: 'GET',
+            url: '{% url "recommendations" %}',
+            data: formData,
+            dataType: 'json',
+            success: function(data) {
+                var html = "<h3>Similar Movies:</h3><ul>";
+                data.forEach(function(item) {
+                    html += "<li>" + item.title + " (" + item.genres + ")" + "</li>";
+                });
+                html += "</ul>";
+                $('#output').html(html);
+            },
+            error: function(xhr, status, error) {
+                $('#output').html("<p style='color: red;'>Error: " + error + "</p>");
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>

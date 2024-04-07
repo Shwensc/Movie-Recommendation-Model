@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Recommendation System</title>
+<link rel="stylesheet" href="{% static 'style.css' %}" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body style="background-color: grey;text-align: center;">
+
+    <!-----The heading scrolling part----
+    <main class="container">
+        <p class="words words--first">
+            <span>Movie Recommendation System-&nbsp;</span>
+        </p>
+        <p class="words words--second">
+            <span>Authors: Steen,Aryan,Shwen-&nbsp;</span>
+        </p>
+    </main>-->
+
+    <!-- Button to navigate to the next page -->
+    <a href="{% url 'mainPage' %}">
+        <button style="background-color: orange; font-family: fantasy;">
+            <h1>Welcome User, Click here to Choose Your Movies</h1>
+        </button>
+    </a>
+
+<h1 style="color: yellow; font-family: monospace;">Movie Recommendation System</h1>
+
+
+
+
+<!--Div for video playing in backGround-->
+<div class="video-container">
+    <video autoplay muted loop>
+        <source src="{% static 'images/backGround_video.mp4' %}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="content"></div>
+
+</body>
+</html>
